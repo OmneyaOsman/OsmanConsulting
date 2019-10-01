@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "982513630155",
+    "firebase_url": "https://osmanconsulting-5ec23.firebaseio.com",
+    "project_id": "osmanconsulting-5ec23",
+    "storage_bucket": "osmanconsulting-5ec23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982513630155:android:672b947797c0e4a3",
+        "android_client_info": {
+          "package_name": "com.omni.osmanconsulting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982513630155-0326cfu66hfc5g2ijrsgn9047as8ojvb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.omni.osmanconsulting",
+            "certificate_hash": "a78aee060e363b2dfdd3548e1f65aeeb11f6261f"
+          }
+        },
+        {
+          "client_id": "982513630155-0krl45bq7pchdje68du3h8ger6e9o32v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOlh2GYWTrKQfiGkHdPwSaCMSt_-cvynM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982513630155-0krl45bq7pchdje68du3h8ger6e9o32v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
