@@ -1,11 +1,38 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:autofilledHighlight" tools:ignore="NewApi">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/lucidagrande</item>
     </style>
 
+    <style name="Widget.OSMAN.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="hintTextAppearance">@style/TextAppearance.DeaLinks.TextInputLayout.HintText</item>
+        <item name="android:backgroundTint">@android:color/white</item>
+        <item name="android:backgroundTintMode">src_in</item>
+        <item name="boxBackgroundColor">@android:color/white</item>
+        <item name="boxStrokeColor">@color/colorAccent</item>
+        <item name="android:elevation">@dimen/margin_16</item>
+        <item name="boxCornerRadiusTopStart">@dimen/radius_4</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_4</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_4</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_4</item>
+        <item name="android:layout_marginStart">@dimen/margin_24</item>
+        <item name="android:layout_marginEnd">@dimen/margin_24</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+    <style name="TextAppearance.DeaLinks.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@color/colorPurple</item>
+    </style>
+    <style name="OSMAN_EditTEXT">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+    <dimen name="margin_24">24dp</dimen>
 </resources>

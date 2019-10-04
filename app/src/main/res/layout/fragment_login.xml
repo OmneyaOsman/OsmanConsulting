@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+>
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/start_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="top"
+
+            android:layout_marginTop="130dp" app:layout_constraintHorizontal_bias="1.0"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            style="@style/Widget.OSMAN.TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_image"
+            android:hint="@string/e_mail"
+            android:layout_marginTop="@dimen/margin_24"
+    >
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_input_edit_text"
+                app:errorEnabled="true"
+                style="@style/OSMAN_EditTEXT"
+
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_input"
+            style="@style/Widget.OSMAN.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_layout"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/OSMAN_EditTEXT"
+                android:inputType="textPassword"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/forgot_password_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+            app:layout_constraintTop_toBottomOf="@id/password_text_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/forgot_password"
+            android:textColor="@android:color/darker_gray"
+            android:textAllCaps="false"
+    />
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/forgot_password_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:layout_marginStart="@dimen/margin_32"
+            android:layout_marginEnd="@dimen/margin_32"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/margin_60"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:cornerRadius="@dimen/margin_16"
+            android:padding="@dimen/radius_4"/>
+
+    <TextView
+            android:id="@+id/not_a_member_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/not_a_member"
+            app:layout_constraintTop_toBottomOf="@id/login_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/register_link_btn"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBaseline_toBaselineOf="@id/register_link_btn"/>
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_link_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintTop_toBottomOf="@id/resend_verification_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/not_a_member_tv"
+            android:text="@string/join_now"
+            android:textAllCaps="false"
+            android:textColor="@color/colorIndigo"
+    />
+
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resend_verification_email"
+            android:text="@string/resend_verification_email"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_btn"
+            android:textColor="@color/colorIndigo"
+            android:textAllCaps="false"
+
+           />
+    <ProgressBar
+            android:id="@+id/login_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>
