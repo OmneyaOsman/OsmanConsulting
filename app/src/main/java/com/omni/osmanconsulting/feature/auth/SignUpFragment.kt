@@ -6,14 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.omni.osmanconsulting.R
 import com.omni.osmanconsulting.core.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
-class SignupFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_register, container, false)
         return rootView
     }
@@ -62,7 +67,8 @@ class SignupFragment : Fragment() {
             if (password == confirmedPassword)
                 registerNewUser(email, password)
             else
-                confirm_password_text_input_register.error = getString(R.string.password_error_dont_match)
+                confirm_password_text_input_register.error =
+                    getString(R.string.password_error_dont_match)
         } else {
             if (emailState == STATE.EMPTY || emailState == STATE.INVALID)
                 if (emailState == STATE.EMPTY)
@@ -78,7 +84,8 @@ class SignupFragment : Fragment() {
                 if (confirmedPasswordState == STATE.EMPTY)
                     confirm_password_text_input_register.error = getString(R.string.required)
                 else
-                    confirm_password_text_input_register.error = getString(R.string.password_error_dont_match)
+                    confirm_password_text_input_register.error =
+                        getString(R.string.password_error_dont_match)
 
 
         }
@@ -86,9 +93,21 @@ class SignupFragment : Fragment() {
         hideSoftKeyboard()
     }
 
+    // todo 1- create new user
     private fun registerNewUser(email: String, password: String) {
+        val mAUth = FirebaseAuth.getInstance()
         updateErrorsState()
-        Toast.makeText(activity, "new user", Toast.LENGTH_LONG).show()
+        register_progress_bar.visibility = View.VISIBLE
+        mAUth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    mAUth.signOut()
+                } else
+                    Toast.makeText(activity, "In Successful Operation${task.exception?.message}", Toast.LENGTH_LONG)
+                        .show()
+                register_progress_bar.visibility = View.GONE
+
+            }
     }
 
 
@@ -97,4 +116,5 @@ class SignupFragment : Fragment() {
         password_text_input_register.error = null
         email_layout_register.error = null
     }
+    // todo add binding data ...  ViewModel to manage state ..... navigation library
 }
