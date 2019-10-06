@@ -3,7 +3,9 @@ package com.omni.osmanconsulting.core
 import android.text.Editable
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import java.util.*
 
 enum class STATE {
     VALID,
@@ -11,7 +13,7 @@ enum class STATE {
     INVALID
 }
 
-const val DOMAIN_NAME = "osman.ca"
+const val DOMAIN_NAME = "gmail.com"
 
 val inputValueString = { editText: EditText -> editText.text.toString().trim() }
 
@@ -31,10 +33,14 @@ fun EditText.emailState(): STATE {
     }
 }
 
-fun Editable.isValidDomain()= substring(indexOf("@") + 1).toLowerCase() == DOMAIN_NAME
+fun Editable.isValidDomain()= substring(indexOf("@") + 1).toLowerCase(Locale.ENGLISH) == DOMAIN_NAME
 
 fun Fragment.hideSoftKeyboard() {
     requireNotNull(activity)
         .window
         .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+}
+
+fun Fragment.showToast(msg:String){
+    Toast.makeText(requireNotNull(activity) , msg , Toast.LENGTH_SHORT).show()
 }

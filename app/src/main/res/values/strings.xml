@@ -9,8 +9,11 @@
     <string name="join_now">Join now</string>
     <string name="sign_up">Sign up</string>
     <string name="hint_confirm_password">Confirm Password</string>
-    <string name="resend_verification_email">Resend Verification Mail</string>
+    <string name="resend_verification_email">Resend Verification Email</string>
     <string name="password_error_msg">password must be at least 8 characters</string>
     <string name="password_error_dont_match">Passwords do not Match</string>
     <string name="register_with_company_email">register with company Email</string>
+    <string name="required_valid_email">please enter a valid E-mail</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/auth_navigation"
+        app:startDestination="@id/loginFragment">
+
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.omni.osmanconsulting.feature.auth.LoginFragment"
+            android:label="LoginFragment"
+            tools:layout="@layout/fragment_login">
+        <action
+                android:id="@+id/action_loginFragment_to_signUpFragment"
+                app:destination="@id/signUpFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+                android:id="@+id/action_loginFragment_to_mainActivity"
+                app:destination="@id/mainActivity" />
+    </fragment>
+    <fragment
+            android:id="@+id/signUpFragment"
+            android:name="com.omni.osmanconsulting.feature.auth.RegisterFragment"
+            android:label="SignUpFragment"
+            tools:layout="@layout/fragment_register">
+        <action
+                android:id="@+id/action_signUpFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
+    </fragment>
+    <activity
+            android:id="@+id/mainActivity"
+            android:name="com.omni.osmanconsulting.MainActivity"
+            android:label="activity_main"
+            tools:layout="@layout/activity_main" />
+
+</navigation>

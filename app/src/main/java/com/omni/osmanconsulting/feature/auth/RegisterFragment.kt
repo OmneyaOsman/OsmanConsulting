@@ -4,39 +4,42 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.omni.osmanconsulting.R
 import com.omni.osmanconsulting.core.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
-class SignUpFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
-
+    private val mAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_register, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         register_btn?.setOnClickListener {
-            onRegisterButtonClicked()
+            registerButtonClicked()
         }
 
-        password_edit_text_register.setOnKeyListener { v, keyCode, event ->
+        login_link_btn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        password_edit_text_register.setOnKeyListener { _, _, _ ->
             if (password_edit_text_register.passwordState() == STATE.VALID) {
                 password_text_input_register.error = null
             }
             false
         }
-        confirm_password_edit_text_register.setOnKeyListener { v, keyCode, event ->
+        confirm_password_edit_text_register.setOnKeyListener { _, _, _ ->
             if (confirm_password_edit_text_register.passwordState() == STATE.VALID) {
                 confirm_password_text_input_register.error = null
             }
@@ -52,7 +55,7 @@ class SignUpFragment : Fragment() {
 
     }
 
-    private fun onRegisterButtonClicked() {
+    private fun registerButtonClicked() {
 
         val emailState = email_input_edit_text_register.emailState()
         val passwordState = password_edit_text_register.passwordState()
@@ -61,26 +64,27 @@ class SignUpFragment : Fragment() {
         val password = inputValueString(password_edit_text_register)
         val confirmedPassword = inputValueString(confirm_password_edit_text_register)
 
-        if (emailState == STATE.VALID && passwordState == STATE.VALID && confirmedPasswordState == STATE.VALID) {
-            val email = inputValueString(email_input_edit_text_register)
+        when {
+            emailState == STATE.VALID && passwordState == STATE.VALID && confirmedPasswordState == STATE.VALID -> {
+                val email = inputValueString(email_input_edit_text_register)
 
-            if (password == confirmedPassword)
-                registerNewUser(email, password)
-            else
-                confirm_password_text_input_register.error =
-                    getString(R.string.password_error_dont_match)
-        } else {
-            if (emailState == STATE.EMPTY || emailState == STATE.INVALID)
+                if (password == confirmedPassword)
+                    registerNewUser(email, password)
+                else
+                    confirm_password_text_input_register.error =
+                        getString(R.string.password_error_dont_match)
+            }
+            else -> {
                 if (emailState == STATE.EMPTY)
                     email_layout_register.error = getString(R.string.required)
                 else
                     email_layout_register.error = getString(R.string.register_with_company_email)
-            if (passwordState == STATE.EMPTY || passwordState == STATE.INVALID)
+
                 if (emailState == STATE.EMPTY)
                     password_text_input_register.error = getString(R.string.required)
                 else
                     password_text_input_register.error = getString(R.string.password_error_msg)
-            if (confirmedPasswordState == STATE.EMPTY || confirmedPassword != password)
+
                 if (confirmedPasswordState == STATE.EMPTY)
                     confirm_password_text_input_register.error = getString(R.string.required)
                 else
@@ -88,33 +92,48 @@ class SignUpFragment : Fragment() {
                         getString(R.string.password_error_dont_match)
 
 
+            }
         }
 
         hideSoftKeyboard()
     }
 
-    // todo 1- create new user
+
     private fun registerNewUser(email: String, password: String) {
-        val mAUth = FirebaseAuth.getInstance()
-        updateErrorsState()
+        cleanErrorsState()
         register_progress_bar.visibility = View.VISIBLE
-        mAUth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    mAUth.signOut()
+                    sendVerificationEMail()
+                    mAuth.signOut()
+                    findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
                 } else
-                    Toast.makeText(activity, "In Successful Operation${task.exception?.message}", Toast.LENGTH_LONG)
-                        .show()
+                   showToast(
+                        "In Successful Operation${task.exception?.message}")
                 register_progress_bar.visibility = View.GONE
 
             }
     }
 
 
-    private fun updateErrorsState() {
+    private fun cleanErrorsState() {
         confirm_password_text_input_register.error = null
         password_text_input_register.error = null
         email_layout_register.error = null
     }
-    // todo add binding data ...  ViewModel to manage state ..... navigation library
+
+    private fun sendVerificationEMail() {
+        mAuth.currentUser?.let {
+            it.sendEmailVerification()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful)
+                        showToast("sent verification E-mail")
+                    else
+                        showToast("couldn't send verification E-mail")
+
+                }
+        }
+    }
+// todo add binding data ...  ViewModel to manage state
 }
