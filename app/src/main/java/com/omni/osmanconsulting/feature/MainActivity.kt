@@ -1,11 +1,11 @@
-package com.omni.osmanconsulting
+package com.omni.osmanconsulting.feature
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.omni.osmanconsulting.feature.AuthActivity
+import com.omni.osmanconsulting.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +18,17 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         checkAuthenticationState()
+    }
+
+
+    private fun getUserDetails(){
+        val user = FirebaseAuth.getInstance().currentUser
+        with(user){
+            val uId = this?.uid
+            val email = this?.email
+            val name = this?.displayName
+            val photoUrl = this?.photoUrl
+        }
     }
 
 
