@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/loginFragment"
-            android:name="com.omni.osmanconsulting.feature.auth.LoginFragment"
+            android:name="com.omni.osmanconsulting.feature.auth.login.LoginFragment"
             android:label="LoginFragment"
             tools:layout="@layout/fragment_login">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
             android:id="@+id/signUpFragment"
-            android:name="com.omni.osmanconsulting.feature.auth.RegisterFragment"
+            android:name="com.omni.osmanconsulting.feature.auth.register.RegisterFragment"
             android:label="SignUpFragment"
             tools:layout="@layout/fragment_register">
         <action

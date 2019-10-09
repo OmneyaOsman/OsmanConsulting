@@ -1,22 +1,27 @@
-package com.omni.osmanconsulting.feature.auth
+package com.omni.osmanconsulting.feature.auth.login
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.omni.osmanconsulting.R
 import com.omni.osmanconsulting.core.*
+import com.omni.osmanconsulting.databinding.FragmentLoginBinding
+import com.omni.osmanconsulting.feature.auth.AuthState
+import com.omni.osmanconsulting.feature.auth.login.verify.ResendVerificationMailDialog
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
 
-    private val mAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val loginViewModel: LoginViewModel
+            by lazy { ViewModelProviders.of(this).get(LoginViewModel::class.java) }
+
     private lateinit var mAuthListener: FirebaseAuth.AuthStateListener
 
     override fun onCreateView(
@@ -24,16 +29,19 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return FragmentLoginBinding.inflate(inflater).apply {
+            this?.lifecycleOwner = this@LoginFragment
+            this?.loginViewModel = loginViewModel
+        }.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpFirebaseAuth()
 
         register_link_btn.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
+            navigateTo(R.id.action_loginFragment_to_signUpFragment)
         }
 
         login_btn.setOnClickListener {
@@ -41,7 +49,8 @@ class LoginFragment : Fragment() {
         }
 
         resend_verification_email.setOnClickListener {
-            val dialog = ResendVerificationMailDialog()
+            val dialog =
+                ResendVerificationMailDialog()
             fragmentManager?.let {
                 dialog.show(it, "dialog_resend_email_verification")
             }
@@ -61,23 +70,23 @@ class LoginFragment : Fragment() {
 
             false
         }
+
+        loginViewModel.authState.observe(this, Observer {
+            when (it) {
+                AuthState.AUTHENTICATED -> {
+                    navigateTo(R.id.action_loginFragment_to_mainActivity)
+                    requireActivity().finish()
+                }
+                AuthState.NOT_VERIFIED -> {
+                    showToast("check your Email inbox for a verification link")
+                    loginViewModel.signOutUser()
+                }
+                else ->
+                    Log.d("Login", it.name)
+            }
+        })
     }
 
-    private fun setUpFirebaseAuth() {
-        mAuthListener = FirebaseAuth.AuthStateListener { auth ->
-            val currentUser = auth.currentUser
-            if (currentUser != null) {
-                if (currentUser.isEmailVerified) {
-                    findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
-                    requireActivity().finish()
-                } else {
-                    showToast("check your Email inbox for a verification link")
-                    mAuth.signOut()
-                }
-            } else
-                Log.d("Login", "user signed out")
-        }
-    }
 
     private fun loginButtonClicked() {
         cleanErrorState()
@@ -109,34 +118,24 @@ class LoginFragment : Fragment() {
         login_progress_bar.visibility = View.VISIBLE
         val password = inputValueString(password_edit_text)
         val email = inputValueString(email_input_edit_text)
-        Log.d("Login", "$email $password")
-        mAuth
-            .signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                login_progress_bar.visibility = View.GONE
-            }.addOnFailureListener {
-                Toast.makeText(
-                    activity,
-                    "Authentication Failed : ${it.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+
+        loginViewModel.signInWithEmailAndPassword(email, password)
     }
 
-    override fun onStart() {
-        super.onStart()
-        mAuthListener.let {
-            mAuth.addAuthStateListener(it)
-            Log.d("Login", "set Listener")
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mAuthListener.let {
-            mAuth.removeAuthStateListener(it)
-            Log.d("Login", "remove Listener")
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        mAuthListener.let {
+//            mAuth.addAuthStateListener(it)
+//            Log.d("Login", "set Listener")
+//        }
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        mAuthListener.let {
+//            mAuth.removeAuthStateListener(it)
+//            Log.d("Login", "remove Listener")
+//        }
+//    }
 
 }

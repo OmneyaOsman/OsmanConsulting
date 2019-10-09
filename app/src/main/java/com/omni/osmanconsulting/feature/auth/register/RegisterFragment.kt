@@ -1,4 +1,4 @@
-package com.omni.osmanconsulting.feature.auth
+package com.omni.osmanconsulting.feature.auth.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -114,6 +114,8 @@ class RegisterFragment : Fragment() {
                 register_progress_bar.visibility = View.GONE
 
             }
+
+
     }
 
 

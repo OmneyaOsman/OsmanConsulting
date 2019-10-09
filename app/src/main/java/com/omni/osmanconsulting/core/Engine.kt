@@ -4,7 +4,9 @@ import android.text.Editable
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import java.util.*
 
 enum class STATE {
@@ -43,4 +45,8 @@ fun Fragment.hideSoftKeyboard() {
 
 fun Fragment.showToast(msg:String){
     Toast.makeText(requireNotNull(activity) , msg , Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.navigateTo(@IdRes action: Int) {
+    findNavController().navigate(action)
 }

@@ -1,4 +1,4 @@
-package com.omni.osmanconsulting.feature.auth
+package com.omni.osmanconsulting.feature.auth.login.verify
 
 import android.content.Context
 import android.graphics.Color
