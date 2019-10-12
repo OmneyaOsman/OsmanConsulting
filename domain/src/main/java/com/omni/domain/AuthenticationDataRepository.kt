@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
 
 
-val authenticationDataRepository: AuthenticationDataRepository by lazy { AuthenticationDataRepository() }
+val repository: AuthenticationDataRepository by lazy { AuthenticationDataRepository() }
 
 class AuthenticationDataRepository(private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()) {
 

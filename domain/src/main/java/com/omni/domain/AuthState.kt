@@ -1,4 +1,4 @@
-package com.omni.osmanconsulting.feature.auth
+package com.omni.domain
 
 enum class AuthState {
     LOADING,
@@ -6,3 +6,4 @@ enum class AuthState {
     NOT_VERIFIED,
     FAILED
 }
+
