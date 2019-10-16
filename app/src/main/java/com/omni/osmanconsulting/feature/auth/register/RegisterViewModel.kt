@@ -1,4 +1,4 @@
-package com.omni.osmanconsulting.feature.auth.login
+package com.omni.osmanconsulting.feature.auth.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,18 +7,19 @@ import com.omni.domain.AuthState
 import com.omni.domain.entity.Status
 import com.omni.domain.repositories.AuthenticationDataRepository
 import com.omni.domain.repositories.repository
-import com.omni.domain.useCase.LoginWithEmailUseCase
+import com.omni.domain.useCase.RegisterWithEmailUseCase
 import kotlinx.coroutines.*
 
-class LoginViewModel(
+class RegisterViewModel(
     private val _authState: MutableLiveData<AuthState> = MutableLiveData(),
     private val _emailState: MutableLiveData<Status> = MutableLiveData(),
     private val _passwordState: MutableLiveData<Status> = MutableLiveData(),
+    private val _confirmPasswordState: MutableLiveData<Boolean> = MutableLiveData(),
     private val _errorMsg: MutableLiveData<String> = MutableLiveData(),
     private val viewModelScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main),
     private val authRepository: AuthenticationDataRepository = repository,
-    private val loginWithEmail: LoginWithEmailUseCase = LoginWithEmailUseCase(
-        _authState, _emailState, _passwordState, _errorMsg, authRepository
+    private val registerWithEmailUseCase: RegisterWithEmailUseCase = RegisterWithEmailUseCase(
+        _authState, _emailState, _passwordState, _confirmPasswordState, _errorMsg, authRepository
     )
 ) :
     ViewModel() {
@@ -28,18 +29,16 @@ class LoginViewModel(
         get() = _passwordState
     val emailState: LiveData<Status>
         get() = _emailState
+    val confirmPasswordState: LiveData<Boolean>
+        get() = _confirmPasswordState
     val errorMsg: LiveData<String>
         get() = _errorMsg
 
 
-    fun signIn(email: String, password: String) {
+    fun registerWithEmail(email: String, password: String, confirmedPassword: String) {
         viewModelScope.launch {
-            loginWithEmail(email, password)
+            registerWithEmailUseCase(email, password, confirmedPassword)
         }
-    }
-
-    fun signOutUser() {
-        authRepository.logout()
     }
 
     @ExperimentalCoroutinesApi

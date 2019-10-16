@@ -1,4 +1,4 @@
-package com.omni.domain
+package com.omni.domain.repositories
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
@@ -21,9 +21,8 @@ class AuthenticationDataRepository(private val firebaseAuth: FirebaseAuth = Fire
         return firebaseAuth.currentUser ?: throw FirebaseAuthException("Auth", "Failed")
     }
 
-    private fun FirebaseUser.sendVerificationEMail() {
-        this.sendEmailVerification()
-    }
+    suspend fun sendVerificationEMail(user: FirebaseUser) =
+        user.sendEmailVerification().await()
 
     fun logout() = firebaseAuth.signOut()
 

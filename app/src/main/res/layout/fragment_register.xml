@@ -1,133 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_60"
-        >
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
->
-    <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/start_image"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="registerViewModel"
+                type="com.omni.osmanconsulting.feature.auth.register.RegisterViewModel" />
+    </data>
+
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="top"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_60">
 
-            android:layout_marginTop="130dp" app:layout_constraintHorizontal_bias="1.0"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_layout_register"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            style="@style/Widget.OSMAN.TextInputLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/start_image"
-            android:hint="@string/e_mail"
-            android:layout_marginTop="@dimen/margin_24"
-    >
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_input_edit_text_register"
-                style="@style/OSMAN_EditTEXT"
-                android:inputType="textEmailAddress"
-
-        />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_text_input_register"
-            style="@style/Widget.OSMAN.TextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_layout_register"
-            app:errorEnabled="true"
-            app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_edit_text_register"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/OSMAN_EditTEXT"
-                android:inputType="textPassword"
-        />
-    </com.google.android.material.textfield.TextInputLayout>
- <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/confirm_password_text_input_register"
-            style="@style/Widget.OSMAN.TextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_confirm_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password_text_input_register"
-            app:errorEnabled="true"
-            app:passwordToggleEnabled="true">
+                android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confirm_password_edit_text_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/OSMAN_EditTEXT"
-                android:inputType="textPassword"
-        />
-    </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/start_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="130dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/register_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/confirm_password_text_input_register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/sign_up"
-            android:textAllCaps="false"
-            android:layout_marginStart="@dimen/margin_32"
-            android:layout_marginEnd="@dimen/margin_32"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/margin_60"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:cornerRadius="@dimen/margin_16"
-            android:padding="@dimen/radius_4"/>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email_layout_register"
+                    style="@style/Widget.OSMAN.TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:hint="@string/e_mail"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/start_image">
 
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/login_link_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-            app:layout_constraintTop_toBottomOf="@id/register_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textColor="@color/colorIndigo"
-    />
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_input_edit_text_register"
+                        style="@style/OSMAN_EditTEXT"
+                        android:inputType="textEmailAddress"
 
-    <ProgressBar
-            android:id="@+id/register_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:elevation="@dimen/margin_16"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-    />
-</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                        />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_text_input_register"
+                    style="@style/Widget.OSMAN.TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_password"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_layout_register"
+                    app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_edit_text_register"
+                        style="@style/OSMAN_EditTEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/confirm_password_text_input_register"
+                    style="@style/Widget.OSMAN.TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_confirm_password"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/password_text_input_register"
+                    app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/confirm_password_edit_text_register"
+                        style="@style/OSMAN_EditTEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/register_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_32"
+                    android:layout_marginTop="@dimen/margin_60"
+                    android:layout_marginEnd="@dimen/margin_32"
+                    android:padding="@dimen/radius_4"
+                    android:text="@string/sign_up"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="@dimen/margin_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/confirm_password_text_input_register" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/login_link_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:textColor="@color/colorIndigo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/register_btn" />
+
+            <ProgressBar
+                    android:id="@+id/register_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:elevation="@dimen/margin_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:status="@{registerViewModel.authState}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

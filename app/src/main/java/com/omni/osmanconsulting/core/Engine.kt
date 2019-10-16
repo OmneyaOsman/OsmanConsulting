@@ -8,7 +8,8 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.omni.domain.engine.Status
+import com.omni.domain.entity.Status
+import com.omni.osmanconsulting.R
 import java.util.*
 
 enum class STATE {
@@ -37,27 +38,13 @@ fun EditText.emailState(): STATE {
     }
 }
 
-fun String.passwordState(): Status {
-    return when {
-        isEmpty() -> return Status.EMPTY
-        length >= 8 -> return Status.VALID
-        else -> Status.INVALID
-    }
-}
-
-fun String.emailState(): Status {
-    return when {
-        isBlank() || isNullOrEmpty() -> return Status.EMPTY
-        isValidDomain() -> return Status.VALID
-        else -> Status.INVALID
-    }
-}
 
 fun Editable.isValidDomain() =
     substring(indexOf("@") + 1).toLowerCase(Locale.ENGLISH) == DOMAIN_NAME
 
-fun String.isValidDomain() =
-    substring(indexOf("@") + 1).toLowerCase(Locale.ENGLISH) == DOMAIN_NAME
+fun TextInputLayout.clear() {
+    error = null
+}
 
 fun Fragment.hideSoftKeyboard() {
     requireNotNull(activity)
@@ -73,6 +60,15 @@ fun Fragment.navigateTo(@IdRes action: Int) {
     findNavController().navigate(action)
 }
 
-fun TextInputLayout.clear() {
-    error = null
+fun Fragment.updateEmailErrorState(emailState: Status) = when (emailState) {
+    Status.VALID -> null
+    Status.INVALID -> getString(R.string.required_valid_email)
+    Status.EMPTY -> getString(R.string.required)
 }
+
+fun Fragment.updatePasswordErrorState(passwordState: Status) = when (passwordState) {
+    Status.VALID -> null
+    Status.INVALID -> getString(R.string.password_error_msg)
+    Status.EMPTY -> getString(R.string.required)
+}
+

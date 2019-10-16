@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.google.firebase.auth.FirebaseAuth
 import com.omni.osmanconsulting.R
 import com.omni.osmanconsulting.core.*
 import com.omni.osmanconsulting.databinding.FragmentLoginBinding
@@ -19,7 +18,7 @@ class LoginFragment : Fragment() {
     val loginViewModel: LoginViewModel
             by lazy { ViewModelProviders.of(this).get(LoginViewModel::class.java) }
 
-    private lateinit var mAuthListener: FirebaseAuth.AuthStateListener
+//    private lateinit var mAuthListener: FirebaseAuth.AuthStateListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,36 +74,11 @@ class LoginFragment : Fragment() {
         }
     }
 
-
-//    private fun loginButtonClicked() {
-//        email_layout.clear()
-//        password_text_input.clear()
-//
-//        val emailState = email_input_edit_text.emailState()
-//        val passwordState = password_edit_text.passwordState()
-//
-//        when {
-//            emailState == STATE.VALID && passwordState == STATE.VALID -> doLogin()
-//            else -> {
-//                if (emailState == STATE.INVALID) email_layout.error =
-//                    getString(R.string.required_valid_email)
-//                else if (emailState == STATE.EMPTY) email_layout.error =
-//                    getString(R.string.required)
-//                if (passwordState == STATE.INVALID) password_text_input.error =
-//                    getString(R.string.password_error_msg)
-//                else if (passwordState == STATE.EMPTY) password_text_input.error =
-//                    getString(R.string.required)
-//
-//            }
-//        }
-//    }
-
-
     private fun doLogin() {
         val password = inputValueString(password_edit_text)
         val email = inputValueString(email_input_edit_text)
-
         loginViewModel.signIn(email, password)
+        hideSoftKeyboard()
     }
 
 //    override fun onStart() {
